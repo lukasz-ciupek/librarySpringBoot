@@ -30,9 +30,9 @@ public class OrderService {
         return bookRepository.addBook(title, author);
     }
 
-    public void removeBook(Integer id)
+    public boolean removeBook(Integer id)
     {
-        bookRepository.removeBook(id);
+        return bookRepository.removeBook(id);
     }
 
     public void returnBook(Integer id)

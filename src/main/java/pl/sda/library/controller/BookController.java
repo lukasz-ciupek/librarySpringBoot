@@ -47,14 +47,12 @@ public class BookController {
     @DeleteMapping("/book/remove/{id}")
     public ResponseEntity deleteBook(@PathVariable Integer id)
     {
-        Optional<Book> deletedBook = orderService.getBooks(null).stream().filter(book -> id.equals(book.getId())).findAny();
+        boolean deleted = orderService.removeBook(id);
 
-        if (deletedBook.isPresent())
+        if(deleted)
         {
-            orderService.removeBook(id);
-            return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
-
 }

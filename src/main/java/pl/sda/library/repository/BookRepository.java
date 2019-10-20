@@ -72,14 +72,17 @@ public class BookRepository {
         return newBook;
     }
 
-    public void removeBook(Integer id)
+    public boolean removeBook(Integer id)
     {
-        Book bookToRemove = books.stream()
+        Optional<Book> bookToRemove = books.stream()
                 .filter(book -> id.equals(book.getId()))
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .findAny();
 
-        books.remove(bookToRemove);
+        if(bookToRemove.isPresent())
+        {
+            return books.remove(bookToRemove.get());
+        }
+        return false;
     }
 
     public Set<Book> getBooks(String title)
